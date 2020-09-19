@@ -1,0 +1,98 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EAF5E2D7-B425-45CD-B7FE-5697BFEA4E29}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		logo.png = logo.png
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scratch", "Scratch\Scratch.csproj", "{39EC54A6-AA76-4D6C-B46D-68965D9D35BF}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AddUp.AnyLog", "AddUp.AnyLog\AddUp.AnyLog.shproj", "{7AAE96CF-BD1D-4D9E-9506-CB31C8659839}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{5F4129ED-8544-4C53-A2DA-7B0428840555}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyLib", "tests\MyLib\MyLib.csproj", "{79B8E39F-79E3-41A0-A981-2E9682003197}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NLogApp", "tests\NLogApp\NLogApp.csproj", "{7049B5D9-AEA7-46C6-8009-CBDD42266D5C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoLoggingFrameworkApp", "tests\NoLoggingFrameworkApp\NoLoggingFrameworkApp.csproj", "{1FBA68B1-EB92-4038-91BB-6A0A91D53532}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TestAppCore", "tests\TestAppCore\TestAppCore.shproj", "{C91D198A-7A71-4618-9184-FDBFAF4E101B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonLoggingApp", "tests\CommonLoggingApp\CommonLoggingApp.csproj", "{1DADE71B-EF86-4CAB-8BDE-09687F35C362}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonLoggingAndNLogApp", "tests\CommonLoggingAndNLogApp\CommonLoggingAndNLogApp.csproj", "{B1D4675C-97BA-426B-813E-EDDE37F6E932}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddUp.AnyLog.Build", "AddUp.AnyLog.Build\AddUp.AnyLog.Build.csproj", "{392C4265-501A-4D40-8C35-80B2FDBD4FDE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddUp.AnyLog.Packaging", "AddUp.AnyLog.Packaging\AddUp.AnyLog.Packaging.csproj", "{39DE1E24-CDBF-4BF1-99A8-DF62CE191548}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		tests\TestAppCore\TestAppCore.projitems*{1dade71b-ef86-4cab-8bde-09687f35c362}*SharedItemsImports = 5
+		tests\TestAppCore\TestAppCore.projitems*{1fba68b1-eb92-4038-91bb-6a0a91d53532}*SharedItemsImports = 5
+		AddUp.AnyLog\AddUp.AnyLog.projitems*{392c4265-501a-4d40-8c35-80b2fdbd4fde}*SharedItemsImports = 5
+		tests\TestAppCore\TestAppCore.projitems*{7049b5d9-aea7-46c6-8009-cbdd42266d5c}*SharedItemsImports = 5
+		AddUp.AnyLog\AddUp.AnyLog.projitems*{79b8e39f-79e3-41a0-a981-2e9682003197}*SharedItemsImports = 5
+		AddUp.AnyLog\AddUp.AnyLog.projitems*{7aae96cf-bd1d-4d9e-9506-cb31c8659839}*SharedItemsImports = 13
+		tests\TestAppCore\TestAppCore.projitems*{b1d4675c-97ba-426b-813e-edde37f6e932}*SharedItemsImports = 5
+		tests\TestAppCore\TestAppCore.projitems*{c91d198a-7a71-4618-9184-fdbfaf4e101b}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{39EC54A6-AA76-4D6C-B46D-68965D9D35BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39EC54A6-AA76-4D6C-B46D-68965D9D35BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39EC54A6-AA76-4D6C-B46D-68965D9D35BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39EC54A6-AA76-4D6C-B46D-68965D9D35BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79B8E39F-79E3-41A0-A981-2E9682003197}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79B8E39F-79E3-41A0-A981-2E9682003197}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79B8E39F-79E3-41A0-A981-2E9682003197}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79B8E39F-79E3-41A0-A981-2E9682003197}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7049B5D9-AEA7-46C6-8009-CBDD42266D5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7049B5D9-AEA7-46C6-8009-CBDD42266D5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7049B5D9-AEA7-46C6-8009-CBDD42266D5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7049B5D9-AEA7-46C6-8009-CBDD42266D5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FBA68B1-EB92-4038-91BB-6A0A91D53532}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FBA68B1-EB92-4038-91BB-6A0A91D53532}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FBA68B1-EB92-4038-91BB-6A0A91D53532}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FBA68B1-EB92-4038-91BB-6A0A91D53532}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DADE71B-EF86-4CAB-8BDE-09687F35C362}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DADE71B-EF86-4CAB-8BDE-09687F35C362}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DADE71B-EF86-4CAB-8BDE-09687F35C362}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DADE71B-EF86-4CAB-8BDE-09687F35C362}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1D4675C-97BA-426B-813E-EDDE37F6E932}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1D4675C-97BA-426B-813E-EDDE37F6E932}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1D4675C-97BA-426B-813E-EDDE37F6E932}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1D4675C-97BA-426B-813E-EDDE37F6E932}.Release|Any CPU.Build.0 = Release|Any CPU
+		{392C4265-501A-4D40-8C35-80B2FDBD4FDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{392C4265-501A-4D40-8C35-80B2FDBD4FDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{392C4265-501A-4D40-8C35-80B2FDBD4FDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{392C4265-501A-4D40-8C35-80B2FDBD4FDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39DE1E24-CDBF-4BF1-99A8-DF62CE191548}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39DE1E24-CDBF-4BF1-99A8-DF62CE191548}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39DE1E24-CDBF-4BF1-99A8-DF62CE191548}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39DE1E24-CDBF-4BF1-99A8-DF62CE191548}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{79B8E39F-79E3-41A0-A981-2E9682003197} = {5F4129ED-8544-4C53-A2DA-7B0428840555}
+		{7049B5D9-AEA7-46C6-8009-CBDD42266D5C} = {5F4129ED-8544-4C53-A2DA-7B0428840555}
+		{1FBA68B1-EB92-4038-91BB-6A0A91D53532} = {5F4129ED-8544-4C53-A2DA-7B0428840555}
+		{C91D198A-7A71-4618-9184-FDBFAF4E101B} = {5F4129ED-8544-4C53-A2DA-7B0428840555}
+		{1DADE71B-EF86-4CAB-8BDE-09687F35C362} = {5F4129ED-8544-4C53-A2DA-7B0428840555}
+		{B1D4675C-97BA-426B-813E-EDDE37F6E932} = {5F4129ED-8544-4C53-A2DA-7B0428840555}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {373EFC68-86B2-4563-B411-9BBC3CC219CF}
+	EndGlobalSection
+EndGlobal

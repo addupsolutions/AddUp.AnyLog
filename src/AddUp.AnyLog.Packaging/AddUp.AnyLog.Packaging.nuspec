@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>AddUp.AnyLog.T3</id>
+    <version>$version$</version>
+    <authors>AddUp</authors>
+    <owners>AddUp</owners>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/addupsolutions/AddUp.AnyLog</projectUrl>
+    <releaseNotes>https://github.com/addupsolutions/AddUp.AnyLog/releases</releaseNotes>
+    <icon>logo.png</icon>
+    <description>A dependency-free code-only logging abstraction</description>
+    <copyright>Copyright © 2020 - AddUp. All Rights Reserved.</copyright>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <developmentDependency>true</developmentDependency>
+    <tags>logging, framework, component, nlog, common.logging</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.6.1">
+        <dependency id="System.ValueTuple" version="4.5.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETFramework4.7.2" />
+      <group targetFramework=".NETStandard2.0" />
+    </dependencies>
+    <contentFiles>
+      <files include="*.cs.pp" />
+    </contentFiles>
+  </metadata>
+  <files>
+    <file src="../logo.png" />
+    <file src="_._" target="lib/netstandard2.0" />
+    <file src="_._" target="lib/net461" />
+    <file src="_._" target="lib/net472" />
+    <file src="**/*.cs.pp" target="contentFiles/cs/netstandard2.0" />
+    <file src="**/*.cs.pp" target="contentFiles/cs/net461" />
+    <file src="**/*.cs.pp" target="contentFiles/cs/net472" />
+  </files>
+</package>

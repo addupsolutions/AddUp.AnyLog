@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <!-- See: -->
+  <!-- https://gist.github.com/attilah/fd3e71f03fd258c496179e0200c57b0b -->
+  <!-- https://github.com/hq-io/Community/blob/master/Squire/build/build.props -->
+  <!-- Suppress build outputs -->
+  <PropertyGroup>
+    <!--<TargetFrameworks>netstandard2.0;net472;net461</TargetFrameworks>-->
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <!--<MinClientVersion>3.3</MinClientVersion>-->
+    <IsPackable>true</IsPackable>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <ContentTargetFolders>contentFiles</ContentTargetFolders>
+    <!--<DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>-->
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <!--<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>-->
+    <NoWarn>CS8021</NoWarn>
+    <!--<NoBuild>true</NoBuild>-->
+    <!--<GeneratePackageOnBuild>true</GeneratePackageOnBuild>-->
+    <AssemblyName>AddUp.AnyLog.T3</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../logo.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <!--<ItemGroup>
+    <Content Include="**\*.pp" Exclude="obj\**">
+      <Pack>true</Pack>
+      <PackagePath>$(ContentTargetFolders)\cs\$(TargetFramework)\%(RecursiveDir)%(Filename)%(Extension)</PackagePath>
+    </Content>
+  </ItemGroup>-->
+
+  <ItemGroup>
+    <PackageReference Include="GitVersionTask" Version="5.3.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="pwsh $(ProjectDir)prebuild.ps1 $(SolutionDir)" />
+  </Target>
+</Project>

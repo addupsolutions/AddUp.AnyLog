@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>7aae96cf-bd1d-4d9e-9506-cb31c8659839</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>AddUp.AnyLog</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)adapters\CommonLoggingAdapter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)adapters\DefaultAdapter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)adapters\NLogAdapter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ILog.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ILoggingFrameworkAdapter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LogExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoggingFrameworkBinder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoggingFrameworkDetector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoggingFrameworkRegistry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LogLevel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LogManager.cs" />
+  </ItemGroup>
+</Project>

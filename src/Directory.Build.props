@@ -1,0 +1,18 @@
+<Project>
+  <!-- Reference: https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build?view=vs-2017 -->
+  <PropertyGroup>
+    <Authors>AddUp</Authors>
+    <Company>AddUp</Company>
+    <Product>AnyLog</Product>
+    <Description>A dependency-free code-only logging abstraction</Description>
+    <Copyright>Copyright © 2020 - AddUp. All Rights Reserved.</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/addupsolutions/AddUp.AnyLog</PackageProjectUrl>
+    <PackageIcon>logo.png</PackageIcon>
+  </PropertyGroup>
+
+  <!-- https://github.com/clairernovotny/DeterministicBuilds -->
+  <PropertyGroup Condition="'$(TF_BUILD)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+</Project>

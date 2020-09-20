@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 
 namespace AddUp.AnyLog
 {
     internal static class LogManager
     {
         private struct LogKey : IEquatable<LogKey>
+        //: IEquatable<LogKey>
         {
             public LogKey(string name, Type type)
             {
@@ -20,13 +20,10 @@ namespace AddUp.AnyLog
             public override bool Equals(object obj) => obj is LogKey key && Equals(key);
             public bool Equals(LogKey other) => Name == other.Name && Type == other.Type;
 
-            public override int GetHashCode()
-            {
-                var hashCode = -243844509;
-                hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
-                hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Type);
-                return hashCode;
-            }
+            public override int GetHashCode() => (Name + Type).GetHashCode();
+
+            public static bool operator ==(LogKey left, LogKey right) => left.Equals(right);
+            public static bool operator !=(LogKey left, LogKey right) => !(left == right);
         }
 
         private sealed class LogImplementation : ILog

@@ -35,10 +35,10 @@ namespace TestApp
 
         private bool UseColor { get; }
 
-        protected override void WriteInternal(LogLevel level, object message, Exception e)
+        protected override void WriteInternal(LogLevel level, object message, Exception exception)
         {
             var sb = new StringBuilder();
-            FormatOutput(sb, level, message, e);
+            FormatOutput(sb, level, message, exception);
             if (UseColor && colors.TryGetValue(level, out var color))
             {
                 var originalColor = Console.ForegroundColor;

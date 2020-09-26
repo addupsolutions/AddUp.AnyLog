@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AddUp.AnyLog
 {
+    [ExcludeFromCodeCoverage]
     internal static class LogManager
     {
         private struct LogKey : IEquatable<LogKey>
-        //: IEquatable<LogKey>
         {
             public LogKey(string name, Type type)
             {

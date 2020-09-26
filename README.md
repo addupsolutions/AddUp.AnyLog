@@ -1,5 +1,10 @@
 # AddUp.AnyLog
 
+![Build](https://github.com/addupsolutions/AddUp.AnyLog/workflows/Build/badge.svg)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=addupsolutions_AddUp.AnyLog&metric=alert_status)](https://sonarcloud.io/dashboard?id=addupsolutions_AddUp.AnyLog)
+[![NuGet](https://img.shields.io/nuget/v/AddUp.AnyLog.svg)](https://www.nuget.org/packages/AddUp.AnyLog/)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=addupsolutions/AddUp.AnyLog)](https://dependabot.com)
+
 A dependency-free code-only logging abstraction.
 
 ## About
@@ -27,9 +32,14 @@ Maybe some/all of the great features in **LibLog** will make it into this librar
 
 ## History
 
-### [Version 0.1.0](WIP)
+### [0.2.0](https://github.com/addupsolutions/AddUp.AnyLog/releases/tag/v0.2.0) - WIP
 
-* WIP
+* Refactored NLog adapter's implementation to use [Expression](https://docs.microsoft.com/en-us/dotnet/api/system.linq.expressions.expression)s instead of raw reflection calls for better performances.
+* Now **AddUp.AnyLog** code is decorated with [ExcludeFromCodeCoverageAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.codeanalysis.excludefromcodecoverageattribute).
+
+### [0.1.0](https://github.com/addupsolutions/AddUp.AnyLog/releases/tag/v0.1.0) - 2020/09/19
+
+* Initial published version: supports **NLog** and **Common.Logging**
 
 ## Credits
 

@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)adapters\CommonLoggingAdapter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)adapters\DefaultAdapter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)adapters\NLogAdapter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)customAttributes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ILog.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ILoggingFrameworkAdapter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LogExtensions.cs" />

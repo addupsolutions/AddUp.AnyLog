@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AddUp.AnyLog
 {
+    [ExcludeFromCodeCoverage]
     internal static class LogExtensions
     {
         public static void Log(this ILog log, LogLevel level, string message) => log.Log(level, message, null);

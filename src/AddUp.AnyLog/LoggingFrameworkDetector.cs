@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
 namespace AddUp.AnyLog
 {
+    [ExcludeFromCodeCoverage]
     internal sealed class LoggingFrameworkDetector
     {
         private readonly Dictionary<LoggingFramework, (LoggingFrameworkDescriptor descriptor, Assembly assy)> detectedFrameworks = 

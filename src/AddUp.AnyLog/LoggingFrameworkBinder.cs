@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace AddUp.AnyLog
 {
+    [ExcludeFromCodeCoverage]
     internal sealed class LoggingFrameworkBinder
     {
         private readonly LoggingFrameworkDetector detector = new LoggingFrameworkDetector();

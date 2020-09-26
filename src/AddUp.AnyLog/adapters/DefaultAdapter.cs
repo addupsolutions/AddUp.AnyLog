@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace AddUp.AnyLog
 {
+    [ExcludeFromCodeCoverage]
     internal sealed class DefaultAdapter : ILoggingFrameworkAdapter
     {
         private const bool shouldLogToConsole = true;

@@ -3,70 +3,76 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace AddUp.AnyLog
 {
-    [SuppressMessage("Critical Code Smell", "S2696:Instance members should not write to \"static\" fields", Justification = "Cache usage")]
+    [ExcludeFromCodeCoverage]
     internal sealed class NLogAdapter : ILoggingFrameworkAdapter
     {
-        // Reflection cached data
-        private static TypeInfo logLevelTypeInfo;
-        private static MethodInfo getLoggerMethodInfo;
-        private static IReadOnlyDictionary<LogLevel, object> logLevels;
-        private static ConcurrentDictionary<string, object> loggers;
-        private static ConcurrentDictionary<string, MethodInfo> logMethodInfos;
-        private static ConcurrentDictionary<string, MethodInfo> logExceptionMethodInfos;
+        private sealed class InnerLogger
+        {
+            private readonly Action<object, object, Exception, string, object[]> logExceptionAndMessage;
 
+            public InnerLogger(Type loggerType, Type logLevelType)
+            {
+                // logger, level, exception, message, args
+                var logExceptionAndMessageMethodInfo = loggerType.GetMethod("Log", new[]
+                {
+                    logLevelType, // level
+                    typeof(Exception), // exception
+                    typeof(string), // message
+                    typeof(object[]) // args
+                });
+
+                var loggerParameter = Expression.Parameter(typeof(object));
+                var loggerCast = Expression.Convert(loggerParameter, loggerType);
+                var levelParameter = Expression.Parameter(typeof(object));
+                var levelCast = Expression.Convert(levelParameter, logLevelType);
+                var exceptionParameter = Expression.Parameter(typeof(Exception));
+                var messageParameter = Expression.Parameter(typeof(string));
+                var argsParameter = Expression.Parameter(typeof(object[]));
+
+                var logExceptionAndMessageCall = Expression.Call(
+                    loggerCast, logExceptionAndMessageMethodInfo, levelCast, exceptionParameter, messageParameter, argsParameter);
+
+                logExceptionAndMessage = Expression.Lambda<Action<object, object, Exception, string, object[]>>(
+                    logExceptionAndMessageCall, loggerParameter, levelParameter, exceptionParameter, messageParameter, argsParameter)
+                    .Compile();
+            }
+
+            public void Log(object logger, object level, string message, Exception exception) =>
+                logExceptionAndMessage(logger, level, exception, message, null);
+        }
+
+        // Reflection data
         private readonly Assembly assy;
+        private readonly Func<string, object> getLoggerByName;
+        private readonly IReadOnlyDictionary<LogLevel, object> logLevels;
+        private readonly Type logLevelType;
+        private readonly ConcurrentDictionary<string, object> namedLoggers;
+        private readonly ConcurrentDictionary<Type, InnerLogger> innerLoggers;        
 
         public NLogAdapter(LoggingFrameworkDescriptor descriptor, Assembly assembly)
         {
             Descriptor = descriptor ?? throw new ArgumentNullException(nameof(descriptor));
             assy = assembly ?? throw new ArgumentNullException(nameof(assembly));
-            InitializeReflectionCache();
-        }
 
-        public LoggingFrameworkDescriptor Descriptor { get; }
-
-        public void Log(string loggerName, LogLevel level, string message, Exception exception)
-        {
-            var logger = loggers.GetOrAdd(loggerName, n => getLoggerMethodInfo.Invoke(null, new[] { n }));
-            if (exception == null)
-            {
-                var logMethodInfo = GetLogMethodInfo(loggerName, logger.GetType());
-                _ = logMethodInfo.Invoke(logger, new[] { logLevels[level], message });
-            }
-            else
-            {
-                var logMethodInfo = GetLogExceptionMethodInfo(loggerName, logger.GetType());
-                _ = logMethodInfo.Invoke(logger, new[] { logLevels[level], message, exception });
-            }
-        }
-
-        private MethodInfo GetLogMethodInfo(string loggerName, Type loggerType) =>
-            logMethodInfos.GetOrAdd(loggerName, n => loggerType.GetMethod("Log", new[]
-            {
-                logLevelTypeInfo.AsType(), // level
-                typeof(string) // message
-            }));
-
-        private MethodInfo GetLogExceptionMethodInfo(string loggerName, Type loggerType) =>
-            logExceptionMethodInfos.GetOrAdd(loggerName, n => loggerType.GetMethod("Log", new[]
-            {
-                logLevelTypeInfo.AsType(), // level
-                typeof(string), // message
-                typeof(Exception), // exception
-            }));
-
-        private void InitializeReflectionCache()
-        {
-            // First, let's retrieve and cache a few things from Reflection.
             var manager = assy.DefinedTypes.Single(ti => ti.FullName == "NLog.LogManager");
-            getLoggerMethodInfo = manager.DeclaredMethods.Single(
-                mi => mi.IsStatic && mi.Name == "GetLogger" && mi.GetParameters().Length == 1 && mi.GetParameters()[0].ParameterType == typeof(string));
+            var getLoggerMethodInfo = manager.DeclaredMethods.Single(
+                mi => mi.IsStatic &&
+                mi.Name == "GetLogger" &&
+                mi.GetParameters().Length == 1 &&
+                mi.GetParameters()[0].ParameterType == typeof(string));
 
-            logLevelTypeInfo = assy.DefinedTypes.Single(ti => ti.FullName == "NLog.LogLevel");
+            var parameter = Expression.Parameter(typeof(string), "name");
+            var call = Expression.Call(null, getLoggerMethodInfo, parameter);
+            getLoggerByName = Expression
+                .Lambda<Func<string, object>>(call, parameter)
+                .Compile();
+
+            var logLevelTypeInfo = assy.DefinedTypes.Single(ti => ti.FullName == "NLog.LogLevel");
             logLevels = new Dictionary<LogLevel, object>
             {
                 [LogLevel.Fatal] = logLevelTypeInfo.GetField("Fatal").GetValue(null),
@@ -77,11 +83,19 @@ namespace AddUp.AnyLog
                 [LogLevel.Trace] = logLevelTypeInfo.GetField("Trace").GetValue(null)
             };
 
-            // Depending on whether we wish to log an exception trace or not, the 'log' method is not the same
-            logMethodInfos = new ConcurrentDictionary<string, MethodInfo>();
-            logExceptionMethodInfos = new ConcurrentDictionary<string, MethodInfo>();
+            logLevelType = logLevelTypeInfo.AsType();
+            namedLoggers = new ConcurrentDictionary<string, object>();
+            innerLoggers = new ConcurrentDictionary<Type, InnerLogger>();
+        }
 
-            loggers = new ConcurrentDictionary<string, object>();
-        }        
+        public LoggingFrameworkDescriptor Descriptor { get; }
+
+        public void Log(string loggerName, LogLevel level, string message, Exception exception)
+        {
+            var namedLogger = namedLoggers.GetOrAdd(loggerName, getLoggerByName);
+            var namedLoggerType = namedLogger.GetType();
+            var innerLogger = innerLoggers.GetOrAdd(namedLoggerType, t => new InnerLogger(t, logLevelType));
+            innerLogger.Log(namedLogger, logLevels[level], message, exception);
+        }
     }
 }

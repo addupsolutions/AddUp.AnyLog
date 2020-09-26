@@ -6,6 +6,7 @@ using System.Reflection;
 
 namespace AddUp.AnyLog
 {
+    [ExcludeFromCodeCoverage]
     [SuppressMessage("Critical Code Smell", "S2696:Instance members should not write to \"static\" fields", Justification = "Cache usage")]
     internal sealed class CommonLoggingAdapter : ILoggingFrameworkAdapter
     {

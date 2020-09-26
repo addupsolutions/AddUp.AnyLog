@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
@@ -12,6 +13,7 @@ namespace AddUp.AnyLog
         NLog
     }
 
+    [ExcludeFromCodeCoverage]
     internal class LoggingFrameworkDescriptor
     {
         public LoggingFrameworkDescriptor(LoggingFramework fx) => Framework = fx;

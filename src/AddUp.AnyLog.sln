@@ -32,10 +32,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddUp.AnyLog.Build", "AddUp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddUp.AnyLog.Packaging", "AddUp.AnyLog.Packaging\AddUp.AnyLog.Packaging.csproj", "{39DE1E24-CDBF-4BF1-99A8-DF62CE191548}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerfTestsApp", "tests\PerfTestsApp\PerfTestsApp.csproj", "{39207172-F833-42EB-B674-5D186AB09835}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		tests\TestAppCore\TestAppCore.projitems*{1dade71b-ef86-4cab-8bde-09687f35c362}*SharedItemsImports = 5
 		tests\TestAppCore\TestAppCore.projitems*{1fba68b1-eb92-4038-91bb-6a0a91d53532}*SharedItemsImports = 5
+		AddUp.AnyLog\AddUp.AnyLog.projitems*{39207172-f833-42eb-b674-5d186ab09835}*SharedItemsImports = 5
 		AddUp.AnyLog\AddUp.AnyLog.projitems*{392c4265-501a-4d40-8c35-80b2fdbd4fde}*SharedItemsImports = 5
 		tests\TestAppCore\TestAppCore.projitems*{7049b5d9-aea7-46c6-8009-cbdd42266d5c}*SharedItemsImports = 5
 		AddUp.AnyLog\AddUp.AnyLog.projitems*{79b8e39f-79e3-41a0-a981-2e9682003197}*SharedItemsImports = 5
@@ -80,6 +83,10 @@ Global
 		{39DE1E24-CDBF-4BF1-99A8-DF62CE191548}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39DE1E24-CDBF-4BF1-99A8-DF62CE191548}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39DE1E24-CDBF-4BF1-99A8-DF62CE191548}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39207172-F833-42EB-B674-5D186AB09835}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39207172-F833-42EB-B674-5D186AB09835}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39207172-F833-42EB-B674-5D186AB09835}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39207172-F833-42EB-B674-5D186AB09835}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,6 +98,7 @@ Global
 		{C91D198A-7A71-4618-9184-FDBFAF4E101B} = {5F4129ED-8544-4C53-A2DA-7B0428840555}
 		{1DADE71B-EF86-4CAB-8BDE-09687F35C362} = {5F4129ED-8544-4C53-A2DA-7B0428840555}
 		{B1D4675C-97BA-426B-813E-EDDE37F6E932} = {5F4129ED-8544-4C53-A2DA-7B0428840555}
+		{39207172-F833-42EB-B674-5D186AB09835} = {5F4129ED-8544-4C53-A2DA-7B0428840555}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {373EFC68-86B2-4563-B411-9BBC3CC219CF}

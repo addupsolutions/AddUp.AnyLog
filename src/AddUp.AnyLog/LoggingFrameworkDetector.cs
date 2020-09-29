@@ -9,6 +9,14 @@ namespace AddUp.AnyLog
     [ExcludeFromCodeCoverage]
     internal sealed class LoggingFrameworkDetector
     {
+        // Might need to tweak this if we are to support Microsoft logging
+        private static readonly string[] skipList = new[]
+        {
+            "mscorlib",
+            "System",
+            "Microsoft.IntelliTrace.Core", // See https://developercommunity.visualstudio.com/content/problem/738856/could-not-load-file-or-assembly-microsoftintellitr.html
+        };
+
         private readonly Dictionary<LoggingFramework, (LoggingFrameworkDescriptor descriptor, Assembly assy)> detectedFrameworks = 
             new Dictionary<LoggingFramework, (LoggingFrameworkDescriptor descriptor, Assembly assy)>();
 
@@ -30,17 +38,23 @@ namespace AddUp.AnyLog
         private void ExamineAssembly(Assembly assy)
         {
             var name = assy.GetName().Name;
-            if (name == "mscorlib" || name == "System" || name.StartsWith("System.")) return; // Might need to tweak this if we are to support Microsoft logging
-
-            var foundDescriptors = assy.GetTypes().Select(type => LoggingFrameworkRegistry.GetDescriptorFromTypeName(type.FullName)).Where(d => d != null);
-            foreach (var descriptor in foundDescriptors)
+            if (name.StartsWith("System.") || skipList.Contains(name)) return;
+            try
             {
-                var fx = descriptor.Framework;
-                if (!DetectedFrameworks.ContainsKey(fx))
+                var foundDescriptors = assy.GetTypes().Select(type => LoggingFrameworkRegistry.GetDescriptorFromTypeName(type.FullName)).Where(d => d != null);
+                foreach (var descriptor in foundDescriptors)
                 {
-                    detectedFrameworks.Add(fx, (descriptor, assy));
-                    FrameworkDetected?.Invoke(this, (descriptor, assy));
+                    var fx = descriptor.Framework;
+                    if (!DetectedFrameworks.ContainsKey(fx))
+                    {
+                        detectedFrameworks.Add(fx, (descriptor, assy));
+                        FrameworkDetected?.Invoke(this, (descriptor, assy));
+                    }
                 }
+            }
+            catch
+            {
+                // Well, seems that we bumped into an error while examining this assembly. Just ignore it.
             }
         }
 

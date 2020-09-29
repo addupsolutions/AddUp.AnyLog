@@ -58,7 +58,7 @@ namespace AddUp.AnyLog
             }
         }
 
-        private static void PreventCrash() // TODO: make sure this is not optimized away...
+        private static void PreventCrash()
         {
             // by executing a few seemingly useless instructions, we force loading of a minimalist set of .NET System assemblies 
             // before we examine future assembly loads

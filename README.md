@@ -12,10 +12,12 @@ A dependency-free code-only logging abstraction.
 We currently make heavy use of [**Common.Logging**](https://github.com/net-commons/common-logging) in our internal shared libraries. Howvever, this poses several problems. I won't bother explaining why I made this lib as others have done before and will simply quote [**LibLog**](https://github.com/damianh/LibLog/wiki)'s author:
 
 > LibLog is designed specifically and primarily for library developers that want to provide logging capabilities.
+>
 > This has been typically achieved in one of three ways:
-> Take a hard dependency on a logging framework. Thus forcing all consumers of your library to also take a dependency on your choice of logging framework. This causes issues when they want to use a different framework or are using a different version of the same one.
-> Use Common.Logging. Providing an abstraction over all the other frameworks has merit but it will add a reference to your consumers' projects. It's still a versionable dependency and can be prone to versioning clashes with other libraries. Common.Logging's ILog contains ~65 members whereas LibLog's ILog has just single method making it easier to implement custom loggers.
-> Define your own Logging abstraction. A common approach used by many libraries that don't want to do 1 or 2. LibLog is designed to help those that would otherwise go down this path.
+>
+> 1. Take a hard dependency on a logging framework. Thus forcing all consumers of your library to also take a dependency on your choice of logging framework. This causes issues when they want to use a different framework or are using a different version of the same one.
+> 1. Use Common.Logging. Providing an abstraction over all the other frameworks has merit but it will add a reference to your consumers' projects. It's still a versionable dependency and can be prone to versioning clashes with other libraries. Common.Logging's ILog contains ~65 members whereas LibLog's ILog has just single method making it easier to implement custom loggers.
+> 1. Define your own Logging abstraction. A common approach used by many libraries that don't want to do 1 or 2. LibLog is designed to help those that would otherwise go down this path.
 
 ### Then, why not use LibLog?
 

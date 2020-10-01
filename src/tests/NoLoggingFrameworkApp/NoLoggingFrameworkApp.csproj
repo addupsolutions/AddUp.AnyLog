@@ -4,7 +4,13 @@
     <OutputType>Exe</OutputType>
     <TargetFrameworks>netcoreapp2.0;net461</TargetFrameworks>
     <RootNamespace>TestApp</RootNamespace>
+    <CodeAnalysisRuleSet>..\..\.sonarlint\addupsolutions_addup.anylogcsharp.ruleset</CodeAnalysisRuleSet>
+    <SonarQubeTestProject>True</SonarQubeTestProject>
   </PropertyGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\.sonarlint\addupsolutions_addup.anylog\CSharp\SonarLint.xml" Link="SonarLint.xml" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MyLib\MyLib.csproj" />

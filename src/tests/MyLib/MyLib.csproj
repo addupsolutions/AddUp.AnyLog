@@ -2,8 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <CodeAnalysisRuleSet>..\..\.sonarlint\addupsolutions_addup.anylogcsharp.ruleset</CodeAnalysisRuleSet>
+    <SonarQubeTestProject>True</SonarQubeTestProject>
   </PropertyGroup>
 
   <Import Project="..\..\AddUp.AnyLog\AddUp.AnyLog.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\.sonarlint\addupsolutions_addup.anylog\CSharp\SonarLint.xml" Link="SonarLint.xml" />
+  </ItemGroup>
 
 </Project>

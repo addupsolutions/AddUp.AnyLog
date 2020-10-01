@@ -3,7 +3,11 @@
     <TargetFrameworks>netstandard2.0;net472;net461</TargetFrameworks>
     <LangVersion>7</LangVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <CodeAnalysisRuleSet>..\.sonarlint\addupsolutions_addup.anylogcsharp.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\.sonarlint\addupsolutions_addup.anylog\CSharp\SonarLint.xml" Link="SonarLint.xml" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.13.0.21683">

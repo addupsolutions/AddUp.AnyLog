@@ -3,8 +3,14 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <CodeAnalysisRuleSet>..\..\.sonarlint\addupsolutions_addup.anylogcsharp.ruleset</CodeAnalysisRuleSet>
+    <SonarQubeTestProject>True</SonarQubeTestProject>
   </PropertyGroup>
 
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\.sonarlint\addupsolutions_addup.anylog\CSharp\SonarLint.xml" Link="SonarLint.xml" />
+  </ItemGroup>
+  
   <ItemGroup>
     <None Remove="NLog.config" />
   </ItemGroup>

@@ -10,7 +10,12 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <NoWarn>CS8021</NoWarn>
     <AssemblyName>AddUp.AnyLog</AssemblyName>
+    <CodeAnalysisRuleSet>..\.sonarlint\addupsolutions_addup.anylogcsharp.ruleset</CodeAnalysisRuleSet>
+    <SonarQubeExclude>True</SonarQubeExclude>
   </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\.sonarlint\addupsolutions_addup.anylog\CSharp\SonarLint.xml" Link="SonarLint.xml" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="../logo.png" Pack="true" PackagePath="\" />

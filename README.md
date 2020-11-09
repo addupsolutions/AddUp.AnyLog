@@ -1,6 +1,6 @@
 # AddUp.AnyLog
 
-![Build](https://github.com/addupsolutions/AddUp.AnyLog/workflows/Build/badge.svg)
+[![Build](https://github.com/addupsolutions/AddUp.AnyLog/workflows/Build/badge.svg)](https://github.com/addupsolutions/AddUp.AnyLog/actions?query=workflow%3ABuild)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=addupsolutions_AddUp.AnyLog&metric=alert_status)](https://sonarcloud.io/dashboard?id=addupsolutions_AddUp.AnyLog)
 [![NuGet](https://img.shields.io/nuget/v/AddUp.AnyLog.svg)](https://www.nuget.org/packages/AddUp.AnyLog/)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=addupsolutions/AddUp.AnyLog)](https://dependabot.com)

@@ -31,6 +31,10 @@ Maybe some/all of the great features in **LibLog** will make it into this librar
 
 ## History
 
+### [0.2.1](https://github.com/addupsolutions/AddUp.AnyLog/releases/tag/v0.2.1) - 2021/05/25
+
+* Added a missing `ExcludeFromCodeCoverage` attribute on top of `LoggingFrameworkRegistry` class
+
 ### [0.2.0](https://github.com/addupsolutions/AddUp.AnyLog/releases/tag/v0.2.0) - 2020/09/29
 
 * Refactored NLog adapter's implementation to use [Expression](https://docs.microsoft.com/en-us/dotnet/api/system.linq.expressions.expression)s instead of raw reflection calls for better performances.

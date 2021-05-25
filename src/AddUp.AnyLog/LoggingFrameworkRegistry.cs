@@ -27,6 +27,7 @@ namespace AddUp.AnyLog
         public ILoggingFrameworkAdapter BuildAdapter(Assembly assy) => AdapterBuilder(this, assy);
     }
 
+    [ExcludeFromCodeCoverage]
     internal static class LoggingFrameworkRegistry
     {
         private const int lowest = 0; // For DefaultAdapter

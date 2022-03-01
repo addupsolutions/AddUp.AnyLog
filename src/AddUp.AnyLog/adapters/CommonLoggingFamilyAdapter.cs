@@ -11,9 +11,9 @@ namespace AddUp.AnyLog
     {
         // Reflection cached data
         
-        private static MethodInfo getLoggerMethodInfo;
-        private static ConcurrentDictionary<string, object> loggers;
-        private static ConcurrentDictionary<(string name, LogLevel level), MethodInfo> logMethodInfos;
+        private MethodInfo getLoggerMethodInfo;
+        private ConcurrentDictionary<string, object> loggers;
+        private ConcurrentDictionary<(string name, LogLevel level), MethodInfo> logMethodInfos;
 
         private readonly bool isAddUpVariant;
         private readonly Assembly assy;

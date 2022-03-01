@@ -8,8 +8,6 @@ namespace TestApp
     {
         private static void Main(string[] args)
         {
-            // See https://github.com/net-commons/common-logging/issues/153
-            // We use our implementation of ConsoleOutLogger because Common.Logging only provides one for netfx
             var props = new NameValueCollection
             {
                 { "configType", "FILE" },

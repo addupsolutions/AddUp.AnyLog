@@ -31,6 +31,11 @@ Maybe some/all of the great features in **LibLog** will make it into this librar
 
 ## History
 
+### [1.0.0](https://github.com/addupsolutions/AddUp.AnyLog/releases/tag/v1.0.0) - 2022/03/01
+
+* Decided to go for v1
+* Added support for <https://github.com/addupsolutions/AddUp.CommonLogging>
+
 ### [0.2.1](https://github.com/addupsolutions/AddUp.AnyLog/releases/tag/v0.2.1) - 2021/05/25
 
 * Added a missing `ExcludeFromCodeCoverage` attribute on top of `LoggingFrameworkRegistry` class

@@ -28,9 +28,8 @@ namespace AddUp.AnyLog
                     case LogLevel.Info: return "I";
                     case LogLevel.Debug: return "D";
                     case LogLevel.Trace: return "T";
+                    default: return "X";
                 }
-
-                return "X";
             }
 
             var builder = new StringBuilder();

@@ -10,6 +10,7 @@ namespace AddUp.AnyLog
     {
         Integrated,
         CommonLogging,
+        AddUpCommonLogging,
         NLog
     }
 
@@ -38,21 +39,22 @@ namespace AddUp.AnyLog
 
         static LoggingFrameworkRegistry()
         {
-            // Special case: defaultDesriptor definition is a bit recursive...
-            var defaultDesriptor = new LoggingFrameworkDescriptor(LoggingFramework.Integrated)
+            // Special case: defaultDescriptor definition is a bit recursive...
+            var defaultDescriptor = new LoggingFrameworkDescriptor(LoggingFramework.Integrated)
             {
                 TestTypeName = "",
                 Preference = lowest
             };
 
-            DefaultAdapter = new DefaultAdapter(defaultDesriptor);
-            defaultDesriptor.AdapterBuilder = (_, __) => DefaultAdapter;
-            descriptors.Add(LoggingFramework.Integrated, defaultDesriptor);
+            DefaultAdapter = new DefaultAdapter(defaultDescriptor);
+            defaultDescriptor.AdapterBuilder = (_, __) => DefaultAdapter;
+            descriptors.Add(LoggingFramework.Integrated, defaultDescriptor);
 
             void add(LoggingFramework fx, string typeName, int preference, Func<LoggingFrameworkDescriptor, Assembly, ILoggingFrameworkAdapter> builder) =>
                 descriptors.Add(fx, new LoggingFrameworkDescriptor(fx) { TestTypeName = typeName, Preference = preference, AdapterBuilder = builder });
 
-            add(LoggingFramework.CommonLogging, "Common.Logging.LogManager", average, (d, assy) => new CommonLoggingAdapter(d, assy));
+            add(LoggingFramework.CommonLogging, "Common.Logging.LogManager", average, (d, assy) => new CommonLoggingFamilyAdapter(d, assy, addUpVariant: false));
+            add(LoggingFramework.AddUpCommonLogging, "AddUp.CommonLogging.LogManager", average, (d, assy) => new CommonLoggingFamilyAdapter(d, assy, addUpVariant: true));
             add(LoggingFramework.NLog, "NLog.LogManager", highest, (d, assy) => new NLogAdapter(d, assy));
         }
 

@@ -7,8 +7,7 @@ using System.Reflection;
 namespace AddUp.AnyLog
 {
     [ExcludeFromCodeCoverage]
-    [SuppressMessage("Critical Code Smell", "S2696:Instance members should not write to \"static\" fields", Justification = "Cache usage")]
-    internal sealed class CommonLoggingAdapter : ILoggingFrameworkAdapter
+    internal sealed class CommonLoggingFamilyAdapter : ILoggingFrameworkAdapter
     {
         // Reflection cached data
         
@@ -16,12 +15,14 @@ namespace AddUp.AnyLog
         private static ConcurrentDictionary<string, object> loggers;
         private static ConcurrentDictionary<(string name, LogLevel level), MethodInfo> logMethodInfos;
 
+        private readonly bool isAddUpVariant;
         private readonly Assembly assy;
 
-        public CommonLoggingAdapter(LoggingFrameworkDescriptor descriptor, Assembly assembly)
+        public CommonLoggingFamilyAdapter(LoggingFrameworkDescriptor descriptor, Assembly assembly, bool addUpVariant)
         {
             Descriptor = descriptor ?? throw new ArgumentNullException(nameof(descriptor));
             assy = assembly ?? throw new ArgumentNullException(nameof(assembly));
+            isAddUpVariant = addUpVariant;
             InitializeReflectionCache();
         }
 
@@ -51,7 +52,8 @@ namespace AddUp.AnyLog
         private void InitializeReflectionCache()
         {
             // First, let's retrieve and cache a few things from Reflection.
-            var manager = assy.DefinedTypes.Single(ti => ti.FullName == "Common.Logging.LogManager");
+            var managerTypeName = isAddUpVariant ? "AddUp.CommonLogging.LogManager" : "Common.Logging.LogManager";
+            var manager = assy.DefinedTypes.Single(ti => ti.FullName == managerTypeName);
             getLoggerMethodInfo = manager.DeclaredMethods.Single(
                 mi => mi.IsStatic && mi.Name == "GetLogger" && mi.GetParameters().Length == 1 && mi.GetParameters()[0].ParameterType == typeof(string));
 

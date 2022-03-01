@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30320.27
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EAF5E2D7-B425-45CD-B7FE-5697BFEA4E29}"
 	ProjectSection(SolutionItems) = preProject
@@ -32,7 +32,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddUp.AnyLog.Build", "AddUp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddUp.AnyLog.Packaging", "AddUp.AnyLog.Packaging\AddUp.AnyLog.Packaging.csproj", "{39DE1E24-CDBF-4BF1-99A8-DF62CE191548}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerfTestsApp", "tests\PerfTestsApp\PerfTestsApp.csproj", "{39207172-F833-42EB-B674-5D186AB09835}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PerfTestsApp", "tests\PerfTestsApp\PerfTestsApp.csproj", "{39207172-F833-42EB-B674-5D186AB09835}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddUpCommonLoggingAndNLogApp", "tests\AddUpCommonLoggingAndNLogApp\AddUpCommonLoggingAndNLogApp.csproj", "{B2030CA3-13A8-4BB8-8453-32E74BEDE656}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddUpCommonLoggingApp", "tests\AddUpCommonLoggingApp\AddUpCommonLoggingApp.csproj", "{A7FFBAD2-B831-4AF1-B822-715217893F61}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -43,7 +47,9 @@ Global
 		tests\TestAppCore\TestAppCore.projitems*{7049b5d9-aea7-46c6-8009-cbdd42266d5c}*SharedItemsImports = 5
 		AddUp.AnyLog\AddUp.AnyLog.projitems*{79b8e39f-79e3-41a0-a981-2e9682003197}*SharedItemsImports = 5
 		AddUp.AnyLog\AddUp.AnyLog.projitems*{7aae96cf-bd1d-4d9e-9506-cb31c8659839}*SharedItemsImports = 13
+		tests\TestAppCore\TestAppCore.projitems*{a7ffbad2-b831-4af1-b822-715217893f61}*SharedItemsImports = 5
 		tests\TestAppCore\TestAppCore.projitems*{b1d4675c-97ba-426b-813e-edde37f6e932}*SharedItemsImports = 5
+		tests\TestAppCore\TestAppCore.projitems*{b2030ca3-13a8-4bb8-8453-32e74bede656}*SharedItemsImports = 5
 		tests\TestAppCore\TestAppCore.projitems*{c91d198a-7a71-4618-9184-fdbfaf4e101b}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +93,14 @@ Global
 		{39207172-F833-42EB-B674-5D186AB09835}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39207172-F833-42EB-B674-5D186AB09835}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39207172-F833-42EB-B674-5D186AB09835}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2030CA3-13A8-4BB8-8453-32E74BEDE656}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2030CA3-13A8-4BB8-8453-32E74BEDE656}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2030CA3-13A8-4BB8-8453-32E74BEDE656}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2030CA3-13A8-4BB8-8453-32E74BEDE656}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7FFBAD2-B831-4AF1-B822-715217893F61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7FFBAD2-B831-4AF1-B822-715217893F61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7FFBAD2-B831-4AF1-B822-715217893F61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7FFBAD2-B831-4AF1-B822-715217893F61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,6 +113,8 @@ Global
 		{1DADE71B-EF86-4CAB-8BDE-09687F35C362} = {5F4129ED-8544-4C53-A2DA-7B0428840555}
 		{B1D4675C-97BA-426B-813E-EDDE37F6E932} = {5F4129ED-8544-4C53-A2DA-7B0428840555}
 		{39207172-F833-42EB-B674-5D186AB09835} = {5F4129ED-8544-4C53-A2DA-7B0428840555}
+		{B2030CA3-13A8-4BB8-8453-32E74BEDE656} = {5F4129ED-8544-4C53-A2DA-7B0428840555}
+		{A7FFBAD2-B831-4AF1-B822-715217893F61} = {5F4129ED-8544-4C53-A2DA-7B0428840555}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {373EFC68-86B2-4563-B411-9BBC3CC219CF}

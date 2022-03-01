@@ -1,4 +1,5 @@
-﻿using Common.Logging;
+﻿using AddUp.CommonLogging.Simple;
+using AddUp.CommonLogging;
 
 namespace TestApp
 {
@@ -6,8 +7,6 @@ namespace TestApp
     {
         private static void Main(string[] args)
         {
-            // See https://github.com/net-commons/common-logging/issues/153
-            // We use our implementation of ConsoleOutLogger because Common.Logging only provides one for netfx
             LogManager.Adapter = new ConsoleOutLoggerFactoryAdapter(LogLevel.Trace, true, true, true, "yyyy/MM/dd HH:mm:ss:fff", true);
             var log = LogManager.GetLogger(typeof(Program));
 
@@ -17,7 +16,7 @@ namespace TestApp
 #else
                 ".NET Core";
 #endif
-            log.Info($"Message from Common.Logging Test App ({netfx})");
+            log.Info($"Message from AddUp.CommonLogging Test App ({netfx})");
             App.Run();
         }
     }

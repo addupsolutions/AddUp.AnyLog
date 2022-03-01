@@ -9,7 +9,7 @@
     <Import_RootNamespace>AddUp.AnyLog</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)adapters\CommonLoggingAdapter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)adapters\CommonLoggingFamilyAdapter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)adapters\DefaultAdapter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)adapters\NLogAdapter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)customAttributes.cs" />

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -9,7 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="NLog.config" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AdditionalFiles Include="..\..\.sonarlint\addupsolutions_addup.anylog\CSharp\SonarLint.xml" Link="SonarLint.xml" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AddUp.CommonLogging.NLog" Version="1.0.0" />
+    <PackageReference Include="NLog" Version="4.7.14" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,5 +29,4 @@
   </ItemGroup>
 
   <Import Project="..\TestAppCore\TestAppCore.projitems" Label="Shared" />
-
 </Project>

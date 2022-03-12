@@ -1,8 +1,7 @@
 ﻿using System;
-using N = NLog;
-using A = AddUp.AnyLog;
-using AddUp.AnyLog;
 using System.Diagnostics;
+using AddUp.AnyLog;
+using N = NLog;
 
 namespace PerfTestsApp
 {
@@ -17,7 +16,7 @@ namespace PerfTestsApp
             mainLog.Info($"WARMUP: count = {count}");
             RunTest(0, count);
 
-            for (var i = 1; i < 5; i++)
+            for (var i = 1; i < 6; i++)
             {
                 count = (int)Math.Pow(10, i);
                 mainLog.Info($"REAL RUN #{i}: count = {count}");
@@ -65,6 +64,30 @@ namespace PerfTestsApp
             log.Info(message);
             log.Debug(message);
             log.Trace(message);
+            if (withException)
+                log.Error(message, new ApplicationException("Test"));
+        }
+
+        private void _LogWithNLog(N.ILogger log, string message, bool withException = true)
+        {
+            if (log.IsFatalEnabled) log.Fatal(message);
+            if (log.IsErrorEnabled) log.Error(message);
+            if (log.IsWarnEnabled) log.Warn(message);
+            if (log.IsInfoEnabled) log.Info(message);
+            if (log.IsDebugEnabled) log.Debug(message);
+            if (log.IsTraceEnabled) log.Trace(message);
+            if (withException)
+                log.Error(new ApplicationException("Test"), message);
+        }
+
+        private void _LogWithAnyLog(ILog log, string message, bool withException = true)
+        {
+            if (log.IsFatalEnabled) log.Fatal(message);
+            if (log.IsErrorEnabled) log.Error(message);
+            if (log.IsWarnEnabled) log.Warn(message);
+            if (log.IsInfoEnabled) log.Info(message);
+            if (log.IsDebugEnabled) log.Debug(message);
+            if (log.IsTraceEnabled) log.Trace(message);
             if (withException)
                 log.Error(message, new ApplicationException("Test"));
         }

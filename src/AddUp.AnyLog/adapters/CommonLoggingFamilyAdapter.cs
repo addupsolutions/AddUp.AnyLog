@@ -10,9 +10,10 @@ namespace AddUp.AnyLog
     internal sealed class CommonLoggingFamilyAdapter : ILoggingFrameworkAdapter
     {
         // Reflection cached data
-        
+
         private MethodInfo getLoggerMethodInfo;
         private ConcurrentDictionary<string, object> loggers;
+        private ConcurrentDictionary<(string name, LogLevel level), MethodInfo> isEnabledMethodInfos;
         private ConcurrentDictionary<(string name, LogLevel level), MethodInfo> logMethodInfos;
 
         private readonly bool isAddUpVariant;
@@ -28,6 +29,28 @@ namespace AddUp.AnyLog
 
         public LoggingFrameworkDescriptor Descriptor { get; }
 
+        public bool IsEnabled(string loggerName, LogLevel level)
+        {
+            var logger = loggers.GetOrAdd(loggerName, n => getLoggerMethodInfo.Invoke(null, new[] { n }));
+            var isEnabledMethodInfo = isEnabledMethodInfos.GetOrAdd((loggerName, level), k =>
+            {
+                switch (k.level)
+                {
+                    case LogLevel.Fatal: return logger.GetType().GetProperty("IsFatalEnabled").GetGetMethod();
+                    case LogLevel.Error: return logger.GetType().GetProperty("IsErrorEnabled").GetGetMethod();
+                    case LogLevel.Warn: return logger.GetType().GetProperty("IsWarnEnabled").GetGetMethod();
+                    case LogLevel.Debug: return logger.GetType().GetProperty("IsDebugEnabled").GetGetMethod();
+                    case LogLevel.Trace: return logger.GetType().GetProperty("IsTraceEnabled").GetGetMethod();
+                    case LogLevel.Info:
+                    default:
+                        return logger.GetType().GetProperty("IsInfoEnabled").GetGetMethod();
+                }
+            });
+
+            var enabled = isEnabledMethodInfo.Invoke(logger, Array.Empty<object>());
+            return (bool)enabled;
+        }
+
         public void Log(string loggerName, LogLevel level, string message, Exception exception)
         {
             var logger = loggers.GetOrAdd(loggerName, n => getLoggerMethodInfo.Invoke(null, new[] { n }));
@@ -38,12 +61,12 @@ namespace AddUp.AnyLog
                     case LogLevel.Fatal: return logger.GetType().GetMethod("Fatal", new[] { typeof(object), typeof(Exception) });
                     case LogLevel.Error: return logger.GetType().GetMethod("Error", new[] { typeof(object), typeof(Exception) });
                     case LogLevel.Warn: return logger.GetType().GetMethod("Warn", new[] { typeof(object), typeof(Exception) });
-                    case LogLevel.Info: return logger.GetType().GetMethod("Info", new[] { typeof(object), typeof(Exception) });
                     case LogLevel.Debug: return logger.GetType().GetMethod("Debug", new[] { typeof(object), typeof(Exception) });
                     case LogLevel.Trace: return logger.GetType().GetMethod("Trace", new[] { typeof(object), typeof(Exception) });
+                    case LogLevel.Info:
+                    default:
+                        return logger.GetType().GetMethod("Info", new[] { typeof(object), typeof(Exception) });
                 }
-
-                return logger.GetType().GetMethod("Info", new[] { typeof(object), typeof(Exception) });
             });
 
             _ = logMethodInfo.Invoke(logger, new[] { (object)message, exception });
@@ -57,8 +80,9 @@ namespace AddUp.AnyLog
             getLoggerMethodInfo = manager.DeclaredMethods.Single(
                 mi => mi.IsStatic && mi.Name == "GetLogger" && mi.GetParameters().Length == 1 && mi.GetParameters()[0].ParameterType == typeof(string));
 
+            isEnabledMethodInfos = new ConcurrentDictionary<(string name, LogLevel level), MethodInfo>();
             logMethodInfos = new ConcurrentDictionary<(string name, LogLevel level), MethodInfo>();
             loggers = new ConcurrentDictionary<string, object>();
-        }        
-    }    
+        }
+    }
 }

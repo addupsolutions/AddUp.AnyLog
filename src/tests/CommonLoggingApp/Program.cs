@@ -8,7 +8,7 @@ namespace TestApp
         {
             // See https://github.com/net-commons/common-logging/issues/153
             // We use our implementation of ConsoleOutLogger because Common.Logging only provides one for netfx
-            LogManager.Adapter = new ConsoleOutLoggerFactoryAdapter(LogLevel.Trace, true, true, true, "yyyy/MM/dd HH:mm:ss:fff", true);
+            LogManager.Adapter = new ConsoleOutLoggerFactoryAdapter(LogLevel.Debug, true, true, true, "yyyy/MM/dd HH:mm:ss:fff", true);
             var log = LogManager.GetLogger(typeof(Program));
 
             var netfx =
@@ -17,7 +17,9 @@ namespace TestApp
 #else
                 ".NET Core";
 #endif
-            log.Info($"Message from Common.Logging Test App ({netfx})");
+
+            var ok = log.IsInfoEnabled;
+            log.Info($"Message from Common.Logging Test App ({netfx}) - Enabled: {ok}");
             App.Run();
         }
     }

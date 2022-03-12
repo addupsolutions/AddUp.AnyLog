@@ -7,7 +7,7 @@ namespace TestApp
     {
         private static void Main(string[] args)
         {
-            LogManager.Adapter = new ConsoleOutLoggerFactoryAdapter(LogLevel.Trace, true, true, true, "yyyy/MM/dd HH:mm:ss:fff", true);
+            LogManager.Adapter = new ConsoleOutLoggerFactoryAdapter(LogLevel.Debug, true, true, true, "yyyy/MM/dd HH:mm:ss:fff", true);
             var log = LogManager.GetLogger(typeof(Program));
 
             var netfx =

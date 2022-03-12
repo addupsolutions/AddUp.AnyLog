@@ -1,5 +1,4 @@
-﻿using System;
-using NLog;
+﻿using NLog;
 
 namespace TestApp
 {
@@ -15,7 +14,8 @@ namespace TestApp
 #else
                 ".NET Core";
 #endif
-            log.Info($"Message from NLog Test App ({netfx})");
+            var ok = log.IsInfoEnabled;
+            log.Info($"Message from NLog Test App ({netfx}) - Enabled: {ok}");
             App.Run();
         }
     }

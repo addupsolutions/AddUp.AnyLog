@@ -14,6 +14,8 @@ namespace AddUp.AnyLog
 
         public LoggingFrameworkDescriptor Descriptor { get; }
 
+        public bool IsEnabled(string loggerName, LogLevel level) => true;
+
         public void Log(string loggerName, LogLevel level, string message, Exception exception)
         {
             const int maxLoggerNameLength = 10;

@@ -13,12 +13,33 @@ namespace AddUp.AnyLog
     {
         private sealed class InnerLogger
         {
+            private readonly Func<object, object, bool> isLogLevelEnabled;
             private readonly Action<object, object, Exception, string, object[]> logExceptionAndMessage;
 
             public InnerLogger(Type loggerType, Type logLevelType)
             {
-                // logger, level, exception, message, args
-                var logExceptionAndMessageMethodInfo = loggerType.GetMethod("Log", new[]
+                isLogLevelEnabled = BuildIsLogLevelEnabledMethod(loggerType, logLevelType);
+                logExceptionAndMessage = BuildLogExceptionAndMessageMethod(loggerType, logLevelType);
+            }
+
+            private Func<object, object, bool> BuildIsLogLevelEnabledMethod(Type loggerType, Type logLevelType)
+            {
+                var methodInfo = loggerType.GetMethod("IsEnabled", new[] { logLevelType });
+
+                var loggerParameter = Expression.Parameter(typeof(object));
+                var loggerCast = Expression.Convert(loggerParameter, loggerType);
+                var levelParameter = Expression.Parameter(typeof(object));
+                var levelCast = Expression.Convert(levelParameter, logLevelType);
+
+                var call = Expression.Call(loggerCast, methodInfo, levelCast);
+
+                return Expression.Lambda<Func<object, object, bool>>(call, loggerParameter, levelParameter)
+                    .Compile();
+            }
+
+            private Action<object, object, Exception, string, object[]> BuildLogExceptionAndMessageMethod(Type loggerType, Type logLevelType)
+            {
+                var methodInfo = loggerType.GetMethod("Log", new[]
                 {
                     logLevelType, // level
                     typeof(Exception), // exception
@@ -34,16 +55,18 @@ namespace AddUp.AnyLog
                 var messageParameter = Expression.Parameter(typeof(string));
                 var argsParameter = Expression.Parameter(typeof(object[]));
 
-                var logExceptionAndMessageCall = Expression.Call(
-                    loggerCast, logExceptionAndMessageMethodInfo, levelCast, exceptionParameter, messageParameter, argsParameter);
+                var call = Expression.Call(
+                    loggerCast, methodInfo, levelCast, exceptionParameter, messageParameter, argsParameter);
 
-                logExceptionAndMessage = Expression.Lambda<Action<object, object, Exception, string, object[]>>(
-                    logExceptionAndMessageCall, loggerParameter, levelParameter, exceptionParameter, messageParameter, argsParameter)
+                return Expression.Lambda<Action<object, object, Exception, string, object[]>>(
+                    call, loggerParameter, levelParameter, exceptionParameter, messageParameter, argsParameter)
                     .Compile();
             }
 
-            public void Log(object logger, object level, string message, Exception exception) =>
-                logExceptionAndMessage(logger, level, exception, message, null);
+            public bool IsEnabled(object nlogLogger, object logLevel) => isLogLevelEnabled(nlogLogger, logLevel);
+
+            public void Log(object nlogLogger, object nlogLevel, string message, Exception exception) =>
+                logExceptionAndMessage(nlogLogger, nlogLevel, exception, message, null);
         }
 
         // Reflection data
@@ -52,7 +75,7 @@ namespace AddUp.AnyLog
         private readonly IReadOnlyDictionary<LogLevel, object> logLevels;
         private readonly Type logLevelType;
         private readonly ConcurrentDictionary<string, object> namedLoggers;
-        private readonly ConcurrentDictionary<Type, InnerLogger> innerLoggers;        
+        private readonly ConcurrentDictionary<Type, InnerLogger> innerLoggers;
 
         public NLogAdapter(LoggingFrameworkDescriptor descriptor, Assembly assembly)
         {
@@ -90,12 +113,16 @@ namespace AddUp.AnyLog
 
         public LoggingFrameworkDescriptor Descriptor { get; }
 
-        public void Log(string loggerName, LogLevel level, string message, Exception exception)
+        public bool IsEnabled(string loggerName, LogLevel level) =>
+            GetLogger(loggerName, out var nlogLogger).IsEnabled(nlogLogger, logLevels[level]);
+
+        public void Log(string loggerName, LogLevel level, string message, Exception exception) =>
+            GetLogger(loggerName, out var nlogLogger).Log(nlogLogger, logLevels[level], message, exception);
+
+        private InnerLogger GetLogger(string loggerName, out object nlogLogger)
         {
-            var namedLogger = namedLoggers.GetOrAdd(loggerName, getLoggerByName);
-            var namedLoggerType = namedLogger.GetType();
-            var innerLogger = innerLoggers.GetOrAdd(namedLoggerType, t => new InnerLogger(t, logLevelType));
-            innerLogger.Log(namedLogger, logLevels[level], message, exception);
+            nlogLogger = namedLoggers.GetOrAdd(loggerName, getLoggerByName);
+            return innerLoggers.GetOrAdd(nlogLogger.GetType(), t => new InnerLogger(t, logLevelType));
         }
     }
 }

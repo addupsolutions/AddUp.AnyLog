@@ -31,6 +31,10 @@ Maybe some/all of the great features in **LibLog** will make it into this librar
 
 ## History
 
+### [1.1.0](https://github.com/addupsolutions/AddUp.AnyLog/releases/tag/v1.1.0) - 2022/03/12
+
+* Added support for `log.IsEnabled(LogLevel)` and associated properties (`log.IsFatalEnabled`, `log.IsErrorEnabled`...)
+
 ### [1.0.0](https://github.com/addupsolutions/AddUp.AnyLog/releases/tag/v1.0.0) - 2022/03/01
 
 * Decided to go for v1

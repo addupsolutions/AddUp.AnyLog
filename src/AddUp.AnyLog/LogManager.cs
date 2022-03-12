@@ -29,14 +29,29 @@ namespace AddUp.AnyLog
 
         private sealed class LogImplementation : ILog
         {
-            public LogImplementation(ILoggingFrameworkAdapter adapter, string name)
+            private readonly ConcurrentDictionary<LogLevel, bool> logLevelEnabledStates = new ConcurrentDictionary<LogLevel, bool>();
+
+            public LogImplementation(ILoggingFrameworkAdapter adapter, string name, bool cacheLogLevelEnabledStates)
             {
+                CacheLogLevelEnabledStates = cacheLogLevelEnabledStates;
                 Adapter = adapter;
                 Name = name ?? "";
             }
 
+            private bool CacheLogLevelEnabledStates { get; }
             private ILoggingFrameworkAdapter Adapter { get; }
             private string Name { get; }
+
+            public bool IsFatalEnabled => IsEnabled(LogLevel.Fatal);
+            public bool IsErrorEnabled => IsEnabled(LogLevel.Error);
+            public bool IsWarnEnabled => IsEnabled(LogLevel.Warn);
+            public bool IsInfoEnabled => IsEnabled(LogLevel.Info);
+            public bool IsDebugEnabled => IsEnabled(LogLevel.Debug);
+            public bool IsTraceEnabled => IsEnabled(LogLevel.Trace);
+
+            public bool IsEnabled(LogLevel level) => CacheLogLevelEnabledStates
+                ? logLevelEnabledStates.GetOrAdd(level, l => Adapter.IsEnabled(Name, l))
+                : Adapter.IsEnabled(Name, level);
 
             public void Log(LogLevel level, string message, Exception exception) => Adapter.Log(Name, level, message, exception);
         }
@@ -54,13 +69,13 @@ namespace AddUp.AnyLog
 
         public static ILog Log => GetLogger("AnyLog");
 
-        public static ILog GetLogger<T>() => GetLogger(typeof(T));
-        public static ILog GetLogger(Type owningType) => GetLogger(owningType?.ToString() ?? "");
-        public static ILog GetLogger(string name)
+        public static ILog GetLogger<T>(bool cacheLogLevelEnabledStates = true) => GetLogger(typeof(T), cacheLogLevelEnabledStates);
+        public static ILog GetLogger(Type owningType, bool cacheLogLevelEnabledStates = true) => GetLogger(owningType?.ToString() ?? "", cacheLogLevelEnabledStates);
+        public static ILog GetLogger(string name, bool cacheLogLevelEnabledStates = true)
         {
             var adapter = CurrentAdapter;
             var key = new LogKey(name, adapter.GetType());
-            return loggers.GetOrAdd(key, k => new LogImplementation(adapter, k.Name));
+            return loggers.GetOrAdd(key, k => new LogImplementation(adapter, k.Name, cacheLogLevelEnabledStates));
         }
     }    
 }

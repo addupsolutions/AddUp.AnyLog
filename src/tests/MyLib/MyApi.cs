@@ -14,12 +14,20 @@ namespace MyLib
                 var text = PrivateImplementation(input, fail);
 
                 // Test all log levels
-                log.Fatal($"Input was: {text}");
-                log.Error($"Input was: {text}");
-                log.Warn($"Input was: {text}");
-                log.Info($"Input was: {text}");
-                log.Debug($"Input was: {text}");
-                log.Trace($"Input was: {text}");
+                var f = log.IsFatalEnabled ? 1 : 0;
+                var e = log.IsErrorEnabled ? 1 : 0;
+                var w = log.IsWarnEnabled ? 1 : 0;
+                var i = log.IsInfoEnabled ? 1 : 0;
+                var d = log.IsDebugEnabled ? 1 : 0;
+                var t = log.IsTraceEnabled ? 1 : 0;
+
+                log.Info($"Enabled States: {f}{e}{w}{i}{d}{t}");
+                log.Fatal($"Input was: {text} - Enabled: {log.IsFatalEnabled}");
+                log.Error($"Input was: {text} - Enabled: {log.IsErrorEnabled}");
+                log.Warn($"Input was: {text} - Enabled: {log.IsWarnEnabled}");
+                log.Info($"Input was: {text} - Enabled: {log.IsInfoEnabled}");
+                log.Debug($"Input was: {text} - Enabled: {log.IsDebugEnabled}");
+                log.Trace($"Input was: {text} - Enabled: {log.IsTraceEnabled}");
             }
             catch (Exception ex)
             {

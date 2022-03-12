@@ -23,7 +23,8 @@ namespace TestApp
 #else
                 ".NET Core";
 #endif
-            log.Info($"Message from Common.Logging+NLog Test App ({netfx})");
+            var ok = log.IsInfoEnabled;
+            log.Info($"Message from Common.Logging+NLog Test App ({netfx}) - Enabled: {ok}");
             App.Run();
         }
     }

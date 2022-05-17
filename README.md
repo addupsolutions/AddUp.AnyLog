@@ -31,6 +31,10 @@ Maybe some/all of the great features in **LibLog** will make it into this librar
 
 ## History
 
+### [1.1.1](https://github.com/addupsolutions/AddUp.AnyLog/releases/tag/v1.1.1) - 2022/03/12
+
+* Now using NLog 5 in test applications (does not change anything in the AnyLog API).
+
 ### [1.1.0](https://github.com/addupsolutions/AddUp.AnyLog/releases/tag/v1.1.0) - 2022/03/12
 
 * Added support for `log.IsEnabled(LogLevel)` and associated properties (`log.IsFatalEnabled`, `log.IsErrorEnabled`...)

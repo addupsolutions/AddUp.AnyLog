@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NLog" Version="5.0.2" />
+    <PackageReference Include="NLog" Version="5.0.3" />
   </ItemGroup>
 
   <Import Project="..\..\AddUp.AnyLog\AddUp.AnyLog.projitems" Label="Shared" />

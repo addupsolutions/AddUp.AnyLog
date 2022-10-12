@@ -12,6 +12,7 @@
     <AssemblyName>AddUp.AnyLog</AssemblyName>
     <CodeAnalysisRuleSet>..\.sonarlint\addupsolutions_addup.anylogcsharp.ruleset</CodeAnalysisRuleSet>
     <SonarQubeExclude>True</SonarQubeExclude>
+    <DevelopmentDependency>true</DevelopmentDependency>
   </PropertyGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\.sonarlint\addupsolutions_addup.anylog\CSharp\SonarLint.xml" Link="SonarLint.xml" />

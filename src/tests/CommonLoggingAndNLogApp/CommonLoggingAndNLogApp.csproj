@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <PackageReference Include="Common.Logging.NLogNetStandard" Version="1.0.7072.33966" />
-    <PackageReference Include="NLog" Version="5.1.3" />
+    <PackageReference Include="NLog" Version="5.1.4" />
   </ItemGroup>
 
   <ItemGroup>

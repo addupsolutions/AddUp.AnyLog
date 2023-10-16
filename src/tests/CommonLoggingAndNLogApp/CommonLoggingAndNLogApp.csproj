@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <PackageReference Include="Common.Logging.NLogNetStandard" Version="1.0.7072.33966" />
-    <PackageReference Include="NLog" Version="5.2.4" />
+    <PackageReference Include="NLog" Version="5.2.5" />
   </ItemGroup>
 
   <ItemGroup>

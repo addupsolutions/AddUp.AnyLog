@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AddUp.CommonLogging.NLog" Version="1.0.2" />
+    <PackageReference Include="AddUp.CommonLogging.NLog" Version="1.0.3" />
     <PackageReference Include="NLog" Version="5.2.8" />
   </ItemGroup>
 
